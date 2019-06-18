@@ -1,0 +1,44 @@
+\documentclass[11pt,english]{scrartcl}
+\usepackage[english]{babel}
+\usepackage{csquotes}
+\usepackage{hyperref}
+\usepackage{tabularx}
+
+% add ltl operators
+\newcommand{\glob}{\ensuremath{\mathcal{G}}}
+\newcommand{\fin}{\ensuremath{\mathcal{F}}}
+\newcommand{\unt}{\ensuremath{\mathcal{U}}}
+
+\begin{document}
+\section{Predicates}
+\label{sec:pred}
+To make comparison with the \texttt{c} implementation easier, the names for predicates have been shared.\\
+
+\begin{tabularx}{\linewidth}{l|l|l}
+  Worksheet name & our name & Type \\ \hline
+  Fenster & window & binary \\
+  Heizung & heating & binary \\
+  Haustüre & door & binary \\
+  Licht & light & binary \\
+  Kaffeemaschine & coffemachine & binary \\
+  Musik & music & binary \\
+  Fenstersensor & window & binary \\
+  Temperatursensor & temperatureSensor & binary\footnote{wärmer/kälter were ignored as it was unclear how they should be interpreted. If there are only two absolute temperatures hot and cold warmer and colder make no sense.}\\
+  Laserschranke & \texttt{ommited}\footnote{since the house appears to only have one room this was subsumed in the geofencing parameter}\\
+  Geofencing & geo & ternary \\
+  Uhrzeit & sun & binary
+\end{tabularx}
+
+\section{Formulae}
+\label{sec:form}
+\begin{itemize}
+\item Heating off, when window open:\\
+  \(\glob . f \Rightarrow \neg h\)
+\item Heating on, when window closed, person in house, cold:\\
+  \(\glob. \neg f \wedge in(geo)\wedge \neg ts \Rightarrow h\)
+\item Light on, if night and,  door open or person near house or person in house:\\
+  \(\glob. \neg sun \wedge (in(geo)\vee near(geo) \Rightarrow l)\)
+\end{itemize}
+
+
+\end{document}
